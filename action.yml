@@ -36,6 +36,7 @@ runs:
       shell: bash
     - name: 🍷 Setting the ssh Key...
       run: |
+        echo ${{ inputs.IP }}
         cat >>~/.ssh/config <<END
         Host ssh
           HostName ${{ inputs.IP }}
