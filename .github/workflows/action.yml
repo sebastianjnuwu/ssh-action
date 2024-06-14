@@ -8,7 +8,9 @@ jobs:
     steps:
       - name: 💞 Github actions...
         uses: actions/checkout@v3
-      - name: 🌈 Deploy with ssh...
+      - name: 📝 Exibir valor do IP
+        run: echo "O IP do servidor é ${{ secrets.IP }}"
+      - name: 🌈 Deploy com SSH...
         uses: ./
         with:
           IP: ${{ secrets.IP }}
