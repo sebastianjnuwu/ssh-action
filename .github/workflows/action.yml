@@ -6,14 +6,18 @@ jobs:
     name: 🕳️ Ubuntu...
     runs-on: ubuntu-latest
     steps:
-      - name: 💞 Github actions...
+      - name: 💞 Checkout do GitHub...
         uses: actions/checkout@v3
-      - name: 📝 Exibir valor do IP
-        run: echo "O IP do servidor é ${{ secrets.IP }}"
+      
+      - name: 📝 Exportar IP do servidor
+        run: |
+          export IP_VALUE="${{ secrets.IP }}"
+          echo "O IP do servidor é $IP_VALUE"
+      
       - name: 🌈 Deploy com SSH...
         uses: ./
         with:
-          IP: ${{ secrets.IP }}
+          IP: ${{ secrets.IP }}  # Ainda usando o segredo diretamente para a ação
           USER: ${{ secrets.USER }}
           KEY: ${{ secrets.KEY }}
           FOLDER: "/root/.deploy"
