@@ -1,13 +1,20 @@
-name: Visualizar IP da VPS
+name: Criptografar IP da VPS
 
 on:
   workflow_dispatch:  # Aciona manualmente ou ajusta para on: [push] para disparar com push
 
 jobs:
-  check-ip:
+  encrypt-ip:
     runs-on: ubuntu-latest
     steps:
-      - name: Exibir IP da VPS
+      - name: Criptografar IP da VPS
         run: |
-          echo "IP da VPS: ${{ secrets.IP }}" > ip.txt
-          cat ip.txt
+          # Ajuste o comando conforme necessário para extrair o IP da VPS
+          IP="${{ secrets.IP }}"
+          
+          # Criptografar o IP usando AES e salvar em um arquivo
+          echo -n "$IP" | openssl enc -aes-256-cbc -a -salt -pass env:AES_KEY > ip_encrypted.txt
+          
+          # Exibir o arquivo criptografado (opcional)
+          cat ip_encrypted.txt
+          
