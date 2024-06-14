@@ -1,20 +1,25 @@
-name: Criptografar IP da VPS
+name: Adicionar IP ao repositório
 
 on:
-  workflow_dispatch:  # Aciona manualmente ou ajusta para on: [push] para disparar com push
+  push:
+    branches:
+      - action  # ajuste para a branch principal do seu repositório
 
 jobs:
-  encrypt-ip:
+  add-ip-file:
     runs-on: ubuntu-latest
     steps:
-      - name: Criptografar IP da VPS
+      - name: Checkout do código
+        uses: actions/checkout@v2
+
+      - name: Criar arquivo com IP
+        run: echo "${{ secrets.IP }}" > ip.txt
+
+      - name: Adicionar arquivo ao repositório
         run: |
-          # Ajuste o comando conforme necessário para extrair o IP da VPS
-          IP="${{ secrets.IP }}"
-          
-          # Criptografar o IP usando AES e salvar em um arquivo
-          echo -n "$IP" | openssl enc -aes-256-cbc -a -salt -pass env:AES_KEY > ip_encrypted.txt
-          
-          # Exibir o arquivo criptografado (opcional)
-          cat ip_encrypted.txt
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add ip.txt
+          git commit -m "Adicionar arquivo com IP ao repositório"
+          git push
           
