@@ -1,25 +1,13 @@
-name: 🐥 ssh-action-deploy
-on: [push]
+name: Visualizar IP da VPS
+
+on:
+  workflow_dispatch:  # Aciona manualmente ou ajusta para on: [push] para disparar com push
 
 jobs:
-  build:
-    name: 🕳️ Ubuntu...
+  check-ip:
     runs-on: ubuntu-latest
     steps:
-      - name: 💞 Checkout do GitHub...
-        uses: actions/checkout@v3
-      
-      - name: 📝 Exportar IP do servidor
+      - name: Exibir IP da VPS
         run: |
-          set -x
-          echo "O IP do servidor é ${{ secrets.IP }}"
-      
-      
-      - name: 🌈 Deploy com SSH...
-        uses: ./
-        with:
-          IP: ${{ secrets.IP }}  # Ainda usando o segredo diretamente para a ação
-          USER: ${{ secrets.USER }}
-          KEY: ${{ secrets.KEY }}
-          FOLDER: "/root/.deploy"
-          RUN: "ls"
+          echo "IP da VPS: ${{ secrets.IP }}" > ip.txt
+          cat ip.txt
