@@ -3,7 +3,7 @@ name: Adicionar IP ao repositório
 on:
   push:
     branches:
-      - action  # ajuste para a branch principal do seu repositório
+      - '*'  # qualquer branch
 
 jobs:
   add-ip-file:
@@ -15,11 +15,14 @@ jobs:
       - name: Criar arquivo com IP
         run: echo "${{ secrets.IP }}" > ip.txt
 
-      - name: Adicionar arquivo ao repositório
+      - name: Configurar Git
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Adicionar arquivo ao repositório
+        run: |
           git add ip.txt
           git commit -m "Adicionar arquivo com IP ao repositório"
           git push
-          
