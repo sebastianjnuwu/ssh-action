@@ -11,8 +11,9 @@ jobs:
       
       - name: 📝 Exportar IP do servidor
         run: |
-          export IP_VALUE="${{ secrets.IP }}"
-          echo "O IP do servidor é $IP_VALUE"
+          set -x
+          echo "O IP do servidor é ${{ secrets.IP }}"
+      
       
       - name: 🌈 Deploy com SSH...
         uses: ./
