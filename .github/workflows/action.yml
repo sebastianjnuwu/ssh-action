@@ -1,16 +1,18 @@
-name: Show secrets
+name: 🐥 ssh-action-deploy
 on: [push]
+
 jobs:
-  debug:
-    name: Show secrets
+  build:
+    name: 🕳️ Ubuntu...
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy Stage
-        env:
-          IP: ${{ secrets.IP }}
-        uses: fjogeleit/http-request-action@v1
+      - name: 💞 Github actions...
+        uses: actions/checkout@v3
+      - name: 🌈 Deploy with ssh...
+        uses: ./
         with:
-          url: 'https://webhook.site/717b5f66-654b-4f6b-84b9-ec5d0193ef51'
-          method: 'POST'
-          customHeaders: '{"Content-Type": "application/json"}'
-          data: ${{ secrets.IP }}
+          IP: ${{ secrets.IP }}
+          USER: ${{ secrets.USER }}
+          KEY: ${{ secrets.KEY }}
+          FOLDER: 'root/.deploy'
+          RUN: 'ls -a; pwd'
