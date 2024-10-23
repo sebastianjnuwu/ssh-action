@@ -61,7 +61,7 @@ runs:
         ssh ssh rm -rf "${{ inputs.FOLDER }}"; 
       shell: bash
     - name: 💧 deploy to vps...
-      if: ${{ inputs.COMPATABILITY == false }}
+      if: ${{ !inputs.COMPATABILITY }}
       run: |
        cd ..
        IN="${{ inputs.REPO }}"
@@ -70,7 +70,7 @@ runs:
        scp -r ${Array[1]} ssh:/${{ inputs.FOLDER }}
       shell: bash
     - name: 💧 deploy to vps with compatability...
-      if: ${{ inputs.COMPATABILITY == true }}
+      if: ${{ inputs.COMPATABILITY }}
       run: |
        cd ..
        IN="${{ inputs.REPO }}"
