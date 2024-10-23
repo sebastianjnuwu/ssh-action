@@ -27,8 +27,11 @@ inputs:
   COMPATABILITY:
     description: "Add the '-O' compatability flag to the SCP command for targets with older verions of OPENSSH (ie: Ubuntu 14.X)."
     type: boolean
-    default: false
     required: false
+    default: 'false'
+    options:
+      - true
+      - false
 
 runs:
   using: "composite"
@@ -61,7 +64,7 @@ runs:
         ssh ssh rm -rf "${{ inputs.FOLDER }}"; 
       shell: bash
     - name: 💧 deploy to vps...
-      if: ${{ !inputs.COMPATABILITY }}
+      if: inputs.COMPATABILITY == 'false'
       run: |
        cd ..
        IN="${{ inputs.REPO }}"
@@ -70,7 +73,7 @@ runs:
        scp -r ${Array[1]} ssh:/${{ inputs.FOLDER }}
       shell: bash
     - name: 💧 deploy to vps with compatability...
-      if: ${{ inputs.COMPATABILITY }}
+      if: inputs.COMPATABILITY == 'true'
       run: |
        cd ..
        IN="${{ inputs.REPO }}"
