@@ -26,12 +26,8 @@ inputs:
     required: false
   COMPATABILITY:
     description: "Add the '-O' compatability flag to the SCP command for targets with older verions of OPENSSH (ie: Ubuntu 14.X)."
-    type: boolean
     required: false
-    default: 'false'
-    options:
-      - true
-      - false
+    type: boolean
 
 runs:
   using: "composite"
