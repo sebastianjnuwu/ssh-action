@@ -33,6 +33,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Print Debugging Info
+      shell: bash
+      run: |
+        echo "ENVs:${{ toJSON(env) }}"
+        echo "INPUTs:${{ toJSON(inputs) }}"
+        echo "VARs:${{ toJSON(vars) }}"
     - name: 🗿 Creating ssh files...
       run: |
         mkdir -p ~/.ssh/
